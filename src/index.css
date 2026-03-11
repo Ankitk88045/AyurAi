@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Baskerville", serif;
+  --font-display: "Cinzel", serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#1a120b] text-amber-50 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-200;
+  }
+}
+
+.parchment-bg {
+  background-color: #1a120b;
+  background-image: 
+    linear-gradient(rgba(26, 18, 11, 0.85), rgba(26, 18, 11, 0.85)),
+    url("https://images.unsplash.com/photo-1544126592-807daa2b565b?q=80&w=1920&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.dark .parchment-bg {
+  background-color: #09090b;
+  background-image: 
+    linear-gradient(rgba(9, 9, 11, 0.92), rgba(9, 9, 11, 0.92)),
+    url("https://images.unsplash.com/photo-1577083165350-16c9f88b4a26?q=80&w=1920&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.disclaimer-banner {
+  @apply bg-[#2d1b0f] text-amber-100 text-[11px] py-2 px-6 text-center font-serif italic border-y border-amber-500/20 shadow-[0_0_15px_rgba(0,0,0,0.5)] z-30 leading-tight backdrop-blur-sm;
+}
+
+.dhanwantari-watermark {
+  position: fixed;
+  bottom: 10%;
+  right: 5%;
+  width: 300px;
+  height: 300px;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Dhanvantari_with_Amrita.jpg/800px-Dhanvantari_with_Amrita.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+  filter: grayscale(100%) sepia(100%) hue-rotate(20deg) brightness(1.2);
+}
+
+.dark .dhanwantari-watermark {
+  opacity: 0.03;
+  filter: invert(1) grayscale(100%) brightness(0.5);
+}
+
+.ancient-border {
+  border-image: linear-gradient(to bottom, #b45309, #78350f) 1;
+}
+
+.markdown-body {
+  @apply font-serif leading-relaxed text-amber-50/90 dark:text-zinc-200 text-[13px];
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  @apply font-display text-amber-400 dark:text-amber-500 mt-4 mb-2;
+}
+
+.markdown-body blockquote {
+  @apply border-l-4 border-amber-600 pl-4 italic bg-amber-900/40 py-2 my-4 rounded-r-lg text-amber-100;
+}
+
+.markdown-body p {
+  @apply mb-4;
+}
+
+.markdown-body code {
+  @apply bg-zinc-100 dark:bg-zinc-800 px-1 rounded text-emerald-600 dark:text-emerald-400;
+}
+
+.shloka {
+  @apply font-serif text-lg text-center my-6 text-emerald-800 dark:text-emerald-300 leading-loose;
+}
+
+.reference {
+  @apply text-xs text-zinc-500 dark:text-zinc-400 mt-1 block text-right italic;
+}
