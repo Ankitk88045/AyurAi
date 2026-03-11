@@ -111,6 +111,7 @@ export default function App() {
   ];
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const clearServerCache = async () => {
     if (confirm('Are you sure you want to clear all server-side AI caches?')) {
@@ -241,6 +242,13 @@ export default function App() {
     };
     checkAdBlocker();
   }, []);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 150)}px`;
+    }
+  }, [input]);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -575,7 +583,7 @@ Content Guidelines:
   };
 
   return (
-    <div className="flex h-screen bg-[#f4ece1] dark:bg-zinc-950 overflow-hidden parchment-bg relative">
+    <div className="flex h-[100dvh] w-full bg-[#f4ece1] dark:bg-zinc-950 overflow-hidden parchment-bg relative">
       <div className="dhanwantari-watermark" />
       
       {/* Toast Notification */}
@@ -1005,7 +1013,7 @@ Content Guidelines:
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col relative">
+      <main className="flex-1 flex flex-col relative min-w-0 h-full overflow-hidden">
         {/* Header */}
         <header className="h-14 border-b border-amber-900/20 flex items-center justify-between px-4 bg-[#1a120b]/90 dark:bg-zinc-950/90 backdrop-blur-md sticky top-0 z-20">
           <div className="flex items-center gap-4">
@@ -1014,7 +1022,7 @@ Content Guidelines:
                 <Menu className="w-5 h-5 text-amber-200" />
               </button>
             )}
-            <h2 className="font-display font-bold text-amber-400 dark:text-amber-500 tracking-tight">
+            <h2 className="font-display font-bold text-amber-400 dark:text-amber-500 tracking-tight truncate max-w-[150px] sm:max-w-xs">
               {currentChatId ? chats.find(c => c.id === currentChatId)?.title : 'Ayur AI Assistant'}
             </h2>
           </div>
@@ -1211,11 +1219,12 @@ Content Guidelines:
               </div>
             )}
             <form onSubmit={sendMessage} className="relative group">
-              <div className="relative flex items-center">
+              <div className="relative flex items-end">
               <textarea
+                ref={textareaRef}
                 rows={1}
                 placeholder="Ask Ayur AI..."
-                className="w-full pl-5 pr-12 py-4 bg-amber-50/80 dark:bg-zinc-900 border border-amber-200 dark:border-amber-900/30 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none resize-none text-zinc-900 dark:text-white transition-all shadow-xl shadow-amber-900/5 font-serif text-sm"
+                className="w-full pl-5 pr-12 py-4 bg-amber-50/80 dark:bg-zinc-900 border border-amber-200 dark:border-amber-900/30 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none resize-none text-zinc-900 dark:text-white transition-all shadow-xl shadow-amber-900/5 font-serif text-sm min-h-[56px] max-h-[150px] overflow-y-auto"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -1228,7 +1237,7 @@ Content Guidelines:
               <button 
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="absolute right-2.5 p-2 bg-amber-700 hover:bg-amber-800 disabled:bg-zinc-300 dark:disabled:bg-zinc-800 text-white rounded-xl transition-all shadow-lg shadow-amber-900/20"
+                className="absolute right-2.5 bottom-2.5 p-2 bg-amber-700 hover:bg-amber-800 disabled:bg-zinc-300 dark:disabled:bg-zinc-800 text-white rounded-xl transition-all shadow-lg shadow-amber-900/20"
               >
                 <Send className="w-4 h-4" />
               </button>

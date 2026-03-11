@@ -8,6 +8,9 @@
 }
 
 @layer base {
+  html, body {
+    @apply m-0 p-0 h-full overflow-hidden;
+  }
   body {
     @apply bg-[#1a120b] text-amber-50 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-200;
   }
@@ -62,7 +65,7 @@
 }
 
 .markdown-body {
-  @apply font-serif leading-relaxed text-amber-50/90 dark:text-zinc-200 text-[13px];
+  @apply font-serif leading-relaxed text-amber-50/90 dark:text-zinc-200 text-[13px] break-words;
 }
 
 .markdown-body h1, .markdown-body h2, .markdown-body h3 {
@@ -75,6 +78,10 @@
 
 .markdown-body p {
   @apply mb-4;
+}
+
+.markdown-body pre {
+  @apply overflow-x-auto max-w-full;
 }
 
 .markdown-body code {
