@@ -62,7 +62,7 @@ app.get('/api/ai/cache', (req, res) => {
   if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
   
   // Simple normalization: lowercase and trim
-  const normalizedPrompt = (prompt as string).toLowerCase().trim();
+  const normalizedPrompt = String(prompt).toLowerCase().trim();
   const cache = db.prepare('SELECT response FROM ai_cache WHERE prompt_hash = ? AND language = ?').get(normalizedPrompt, lang || 'English');
   
   if (cache) {
@@ -76,7 +76,7 @@ app.post('/api/ai/cache', (req, res) => {
   const { prompt, response, lang } = req.body;
   if (!prompt || !response) return res.status(400).json({ error: 'Prompt and response are required' });
   
-  const normalizedPrompt = (prompt as string).toLowerCase().trim();
+  const normalizedPrompt = String(prompt).toLowerCase().trim();
   try {
     db.prepare('INSERT OR REPLACE INTO ai_cache (prompt_hash, response, language) VALUES (?, ?, ?)').run(normalizedPrompt, response, lang || 'English');
     res.json({ success: true });
